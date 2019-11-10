@@ -13,5 +13,5 @@ users api [http://0.0.0.0:8000/api/v1/customers](http://0.0.0.0:8000/api/v1/cust
 filter url example = `http://0.0.0.0:8000/api/v1/customers?registration_date=12/05/2018`
 
 in case celery didn't work, comment celery and redis services in `docker-compose.yml`,
-and change function call in directory `core/views/customer.py` in `CustomersFromCSVFile` view 
+and change function call in directory `core/views/customer.py` in `CustomersUploadCSVFile` view 
 line `create_customer.delay(file.read().decode())` to `create_customer(file.read().decode())`
