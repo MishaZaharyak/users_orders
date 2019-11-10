@@ -5,7 +5,9 @@ example ubuntu: `sudo chmod -R a+rwx redis`/
 4) open web container `docker exec -it web bash`
 5) run migrations in web container `python manage.py migrate`
 6) open in browser [http://0.0.0.0:8000](http://0.0.0.0:8000)
+
 #####Addition Info
+
 users api [http://0.0.0.0:8000/api/v1/customers](http://0.0.0.0:8000/api/v1/customers)
 
 filter url example = `http://0.0.0.0:8000/api/v1/customers?registration_date=12/05/2018`
