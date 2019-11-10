@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container pt-5">
+        <div class="table-responsive-xl">
+            <table class="table table-striped table-600">
+                <thead>
+                <tr>
+                    <th class="list_table__th" scope="col">ID</th>
+                    <th class="list_table__th" scope="col">Products</th>
+                    <th class="list_table__th" scope="col">Created</th>
+                    <th class="list_table__th"></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for object in object_list %}
+                    <tr>
+                        <th scope="row">{{ object.id }}</th>
+                        {% with products=object.products.all %}
+                            <td>
+                                {% for product in products %}
+                                    {{ product.name }}{% if not forloop.last %},{% endif %}
+                                {% endfor %}
+                            </td>
+                        {% endwith %}
+                        <td>{{ object.created_date }}</td>
+                        <td>
+                            <a href="{% url 'core:order:order_edit' object.id %}" class="btn btn-sm btn-info">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                            <button class="btn btn-sm btn-danger delete-btn"
+                                    data-name="this order"
+                                    data-csrf_token="{{ csrf_token }}"
+                                    data-url="{% url 'core:order:order_delete' object.id %}">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="4" class="text-center">Orders list empty</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {% with page_paginator=page_obj num_pages=paginator.num_pages %}
+            {% if num_pages > 1 %}
+                {% include 'pagination.html' %}
+            {% endif %}
+        {% endwith %}
+    </div>
+{% endblock %}

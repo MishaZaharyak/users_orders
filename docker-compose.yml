@@ -1,0 +1,45 @@
+version: '3'
+
+services:
+    db:
+        image: 'postgres'
+        container_name: 'postgres_db'
+        ports:
+            - '5432:5432'
+        volumes:
+            - './db_data:/var/lib/postgresql/data'
+        environment:
+            POSTGRES_PASSWORD: 123456
+            POSTGRES_USER: 'user'
+            POSTGRES_DB: 'postgres_db'
+    web:
+        build: .
+        container_name: 'web'
+        command: python manage.py runserver 0.0.0.0:8000
+        volumes:
+            - .:/code
+        ports:
+            - '8000:8000'
+        depends_on:
+            - db
+
+    redis:
+        image: bitnami/redis:latest
+        container_name: 'redis'
+        environment:
+            - ALLOW_EMPTY_PASSWORD=yes
+        volumes:
+            - ./redis/data:/bitnami/redis/data
+        ports:
+            - 6379:6379
+
+    celery:
+        build: .
+        container_name: 'celery'
+        command: celery -A users_orders worker -l info
+        volumes:
+            - .:/code
+        depends_on:
+            - redis
+volumes:
+  db_data:

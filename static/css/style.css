@@ -1,0 +1,40 @@
+.table-800 {
+  min-width: 800px;
+}
+
+.table-600 {
+  min-width: 600px;
+}
+
+.table-500 {
+  min-width: 500px;
+}
+
+.list_table__th {
+  white-space: nowrap;
+}
+
+.invalid {
+  border-color: red;
+}
+
+.pagination {
+  display: inline-flex;
+}
+
+.ui-pnotify-text ul.errorlist {
+  padding: 0;
+  list-style-type: none;
+}
+.ui-pnotify-text ul.errorlist > li {
+  font-weight: bold;
+}
+.ui-pnotify-text ul.errorlist > li .errorlist {
+  padding-left: 20px;
+  list-style-type: square;
+}
+.ui-pnotify-text ul.errorlist > li .errorlist li {
+  font-weight: normal;
+}
+
+/*# sourceMappingURL=style.css.map */

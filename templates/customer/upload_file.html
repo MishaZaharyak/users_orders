@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block style %}
+     <link href="{% static 'vendor/dropzone/dropzone.css' %}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+    <div class="content pt-5">
+        <form action="{% url 'core:customer:upload_file' %}" method="post" enctype="multipart/form-data"
+              class="dropzone dz-clickable">
+            {% csrf_token %}
+            <div class="dz-default dz-message">
+                <span>Drop file here</span>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+{% block scripts %}
+     <script src="{% static 'vendor/dropzone/dropzone.js' %}"></script>
+{% endblock %}

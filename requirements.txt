@@ -1,0 +1,16 @@
+amqp==2.5.2
+billiard==3.6.1.0
+celery==4.3.0
+Django==2.2.7
+django-crispy-forms==1.8.0
+django-tempus-dominus==5.1.2.8
+djangorestframework==3.10.3
+importlib-metadata==0.23
+kombu==4.6.6
+more-itertools==7.2.0
+psycopg2-binary==2.8.3
+pytz==2019.3
+redis==3.3.11
+sqlparse==0.3.0
+vine==1.3.0
+zipp==0.6.0

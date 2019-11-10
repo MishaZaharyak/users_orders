@@ -1,0 +1,44 @@
+{% load filter_extras %}
+<div class="text-center">
+    <ul class="pagination">
+        {% if page_paginator.number > 2 %}
+            <li class="page-item"><a class="page-link" href="{% get_url_with_params request.GET 'page' 1 %}">&laquo;</a></li>
+        {% endif %}
+        {% if page_paginator.number > 1 %}
+            <li class="page-item"><a class="page-link" href="{% get_url_with_params request.GET 'page' page_paginator.previous_page_number %}">‹</a></li>
+        {% endif %}
+
+        {% if page_paginator.previous_page_number|add:-1 > 0 %}
+            <li class="page-item"><a class="page-link" href="{% get_url_with_params request.GET 'page' page_paginator.previous_page_number|add:-1 %}">
+                {{ page_paginator.previous_page_number|add:-1 }}
+            </a></li>
+        {% endif %}
+
+        {% if page_paginator.has_previous %}
+            <li class="page-item"><a class="page-link" href="{% get_url_with_params request.GET 'page' page_paginator.previous_page_number %}">
+                {{ page_paginator.previous_page_number }}
+            </a></li>
+        {% endif %}
+
+        <li class="page-item {% if page_paginator.number %}active{% endif %}"><a class="page-link" href="#">{{ page_paginator.number }}</a></li>
+
+        {% if page_paginator.has_next %}
+            <li class="page-item"><a class="page-link" href="{% get_url_with_params request.GET 'page' page_paginator.next_page_number %}">
+                {{ page_paginator.next_page_number }}
+            </a></li>
+        {% endif %}
+
+        {% if page_paginator.next_page_number|add:1 <= num_pages %}
+            <li class="page-item"><a class="page-link" href="{% get_url_with_params request.GET 'page' page_paginator.next_page_number|add:1 %}">
+                {{ page_paginator.next_page_number|add:1 }}
+            </a></li>
+        {% endif %}
+
+        {% if page_paginator.number < num_pages %}
+            <li class="page-item"><a class="page-link" href="{% get_url_with_params request.GET 'page' page_paginator.next_page_number %}">›</a></li>
+            {% if page_paginator.next_page_number|add:1 <= num_pages %}
+                <li class="page-item"><a class="page-link" href="{% get_url_with_params request.GET 'page' num_pages %}">&raquo;</a></li>
+            {% endif %}
+        {% endif %}
+    </ul>
+</div>

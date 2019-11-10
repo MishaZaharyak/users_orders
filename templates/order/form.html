@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container pt-5">
+        <form action="{% url 'core:order:order_create' %}"
+              class="{% if form.instance.id %}is_instance_form{% endif %}"
+              method="POST">
+            {% csrf_token %}
+            {% if form.instance.id %}
+                <input type="text" name="pk" value="{{ form.instance.id }}" hidden>
+            {% endif %}
+
+            <div class="form-group">
+                <label for="products">Products</label>
+                <select multiple class="form-control" name="products" id="products" multiple>
+                    {% with obj_products=object.products.all %}
+                        {% for product in products %}
+                            <option value="{{ product.id }}"
+                                    {% if product in obj_products %}selected{% endif %}>{{ product.name }}</option>
+                        {% endfor %}
+                    {% endwith %}
+                </select>
+            </div>
+            <div class="d-flex justify-content-between align-items-end">
+                <input type="submit" class="btn btn-primary" value="Submit">
+                {% if form.instance.id is not None %}
+                    <button data-url="{% url 'core:order:order_delete' form.instance.id %}"
+                            data-redirect="{% url 'core:order:orders_list' %}"
+                            data-csrf_token="{{ csrf_token }}"
+                            data-name="this order"
+                            class="btn btn-danger delete-btn">Delete
+                    </button>
+                {% endif %}
+            </div>
+        </form>
+    </div>
+{% endblock %}
+{% block scripts %}
+    <script>
+        $('form').submit(function (e) {
+            e.preventDefault();
+            const form = $(this);
+            let data = form.serializeArray().filter(el => el.name !== 'products');
+            data.push({name: 'products', value: form.find('[name=products]').val().join(',')});
+            const response = ajax("POST", form.attr('action'), $.param(data));
+
+            removeErrors(form);
+            if (response.result > 0 && !form.hasClass('is_instance_form')) {
+                form.find('input[type=text], select').val('');
+            } else {
+                showFormErrors(form, response);
+            }
+        });
+    </script>
+{% endblock %}
