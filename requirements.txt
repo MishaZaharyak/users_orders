@@ -1,7 +1,7 @@
 amqp==2.5.2
 billiard==3.6.1.0
 celery==4.3.0
-Django==2.2.7
+Django==2.2.8
 django-crispy-forms==1.8.0
 django-tempus-dominus==5.1.2.8
 djangorestframework==3.10.3
